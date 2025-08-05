@@ -5,22 +5,18 @@
   <title>퀴즈 접속 확인</title>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+  
       const ref = document.referrer;
-      const allowedRef = "https://www.band.us/band/98115345";
-
-      console.log("Referrer:", ref);
-      const urlParams = new URLSearchParams(window.location.search);
-      const from = urlParams.get("from");
-      console.log("from 파라미터:", from);
-      
-      if (ref.includes(allowedRef)) {
-        // 네이버밴드에서 왔을 때 퀴즈로 이동 X
-        // 새창일 경우 로 수정
-        window.location.href = "https://smore.im/quiz/04ruyhAHlL";
+      const ua = navigator.userAgent.toLowerCase();
+      if (
+        ref.includes("band.us") ||
+        ua.includes("band")
+      ) {
+        // 밴드에서 온 사용자로 간주
+        console.log("밴드 유입");
       } else {
-        // 다른 곳에서 왔을 때 차단
-        alert("이 퀴즈는 네이버 밴드에서만 참여할 수 있습니다.");
-        history.back(); // 또는 다른 페이지로 이동도 가능
+        alert("이 페이지는 네이버 밴드에서만 접근할 수 있습니다.");
+        history.back(); // 또는 location.href = "/error.html"
       }
     });
   </script>
@@ -30,3 +26,4 @@
 </body>
 
 </html>
+
